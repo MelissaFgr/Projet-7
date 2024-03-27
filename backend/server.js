@@ -1,19 +1,30 @@
-const express = require('express');
-const mongoose = require('mongoose');
+const http = require('http');
+const app = require('./app');
 
-mongoose.connect('mongodb://localhost/projet7', (err) =>{
-   if (err) {
-      throw err;
+// Pour normaliser un port (éviter les erreurs de mal configuré ou déjà utilisé)
+const normalizePort = (val) => {
+   const port = parseInt(val, 10);
+
+   if (isNaN(port)) {
+       return val;
    }
+   if (port >= 0) {
+       return port;
+   }
+   return false;
+};
+
+const port = normalizePort(process.env.PORT || "4000");
+app.set("port", port);
+
+const server = http.createServer(app);
+
+// log de l'écoute du serveur
+server.on("listening", () => {
+    const address = server.address();
+    const bind =
+        typeof address === "string" ? "pipe " + address : "port " + port;
+    console.log("Serveur en ecoute sur " + bind);
 });
 
-const booksRouter = require('./routes/books');
-const userRouter = require('./routes/auth');
-
-const app = express();
-
-app.use('/api/books', booksRouter);
-
-app.use('/api/auth', userRouter);
-
-module.exports = app;
+server.listen(port);

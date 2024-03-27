@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
-    userId: String,
-    title: String,
-    author: String,
-    imageURL: String,
-    year: Number,
-    genre: String,
-    ratings: [
+   userId: { type: String, required: true },
+   title: { type: String, required: true },
+   author: { type: String, required: true },
+   imageUrl: { type: String, required: true },
+   year: { type: Number, required: true },
+   genre: { type: String, required: true },
+   ratings: [
        {
-          userld:String,
-          grade: Number
+         userId: { type: String, required: true },
+         grade: { type: Number, min: 1, required: true },
        }
     ],
-    averageRating: Number
+    averageRating: { type: Number },
  });
 
  const Book = mongoose.model('Book', bookSchema);

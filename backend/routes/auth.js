@@ -1,19 +1,17 @@
 const express = require('express');
-const Users = require('./models/users');
+const userController = require('../controllers/auth');
+
+const auth = require('../middlewares/auth');
 
 const router = express.Router();
 
 router.use((req, res, next) => {
-    console.log('middleware auth');
-    next();
+    console.log('Routes Auth');    
 });
 
-router.post('/api/auth/signup', (req, res) => {
-    //Code à créer 
-});
+// Appelle la route en y intégrant le middleware d'authentification et le controleur (problème)
+router.post('/signup', auth, (userController.signup));
  
-router.post('/api/auth/login', (req, res) => {
-    //Code à créer 
-});
+router.post('/login', auth, (userController.login));
 
 module.exports = router;
