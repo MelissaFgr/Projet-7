@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
     unique: true,
     validate: {
       validator: function (value) {
+        //Regex pour valider le format du mail
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
       },
       message: 'Le format de l\'adresse e-mail est incorrect',

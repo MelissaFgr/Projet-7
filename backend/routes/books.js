@@ -9,6 +9,7 @@ function createRoute(route, middlewares, controllerMethod) {
     router[route.method](route.path, ...middlewares, controllerMethod);
 }
 
+//Définition des routes dans leurs méthodes, chemins, middlewares et méthodes des contrôleurs
 const routes = [
     { method: 'post', path: '/', middlewares: [authMiddleware, multerMiddleware], controllerMethod: bookController.createBook },
     { method: 'post', path: '/:id/rating', middlewares: [authMiddleware], controllerMethod: bookController.addRating },
@@ -20,6 +21,7 @@ const routes = [
     { method: 'get', path: '/', middlewares: [], controllerMethod: bookController.getAllBooks }
 ];
 
+//Création d'une route pour chaque élément d'objet
 routes.forEach(route => createRoute(route, route.middlewares, route.controllerMethod));
 
 module.exports = router;
