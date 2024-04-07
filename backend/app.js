@@ -31,6 +31,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/images', express.static('images')); // Jérémie
 // Middleware pour parser le corps des requêtes en JSON
 app.use(express.json());
 
