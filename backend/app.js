@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose'); 
 const dotenv = require('dotenv').config();
 
+//Récupération username + password dans le fichier .env
+const usernameDB = process.env.MONGODB_USERNAME;
+const passwordDB = process.env.MONGODB_PASSWORD;
 
 const bookRoutes = require('./routes/books');
 const userRoutes = require('./routes/auth');
@@ -9,7 +12,7 @@ const userRoutes = require('./routes/auth');
 // Connexion à la base de données MongoDB
 mongoose
   .connect(
-    `mongodb://localhost:27017/projet7`,
+    `mongodb://${usernameDB}:${passwordDB}@localhost:27017/projet7`, //Connexion à la base de données avec authentification
     { useNewUrlParser: true, useUnifiedTopology: true } // Options de connexion (nouvelle URL de connexion et détection des serveurs)
   )
   .then(() => console.log('Connexion à MongoDB réussie'))
@@ -31,7 +34,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/images', express.static('images')); // Jérémie
+app.use('/images', express.static('images')); // Publication du dossier image
 // Middleware pour parser le corps des requêtes en JSON
 app.use(express.json());
 

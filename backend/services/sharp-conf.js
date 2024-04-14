@@ -22,7 +22,7 @@ async function resizeImage(file) {
   // Définition du chemin de destination pour l'image redimensionnée en format .avif
   const destinationPath = absolutePath.replace(`.${extension}`, '.avif');
 
-  sharp.cache(false); // indiquer à Jérémie
+  sharp.cache(false); 
   // Utilisation de Sharp pour redimensionner l'image et la convertir en format .avif
   await sharp(absolutePath)
     .resize({ width: 800, fit: 'contain' })

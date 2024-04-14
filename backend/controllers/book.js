@@ -11,7 +11,7 @@ exports.createBook = async (req, res, next) => {
     const filename = await sharp.resizeImage(req.file);
     //Construction l'url complète de l'image (problème d'affichage d'image)
     const imageUrlOriginal = `${req.protocol}://${req.get('host')}/${filename}`;
-    const imageUrl = imageUrlOriginal.replace(/\\/g,"/"); // Jérémie
+    const imageUrl = imageUrlOriginal.replace(/\\/g,"/"); // Remplace tous les \ par des / afin de corriger le format de l'url et afficher l'image
 
     delete bookObject._id;
     delete bookObject._userID;
